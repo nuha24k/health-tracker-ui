@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'views/main_wrapper.dart';
+import 'views/screen/screen_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,16 +14,14 @@ class MyApp extends StatelessWidget {
       title: 'Health Tracker',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'SF Pro Display',
-        scaffoldBackgroundColor: const Color(0xFFF8F9FA),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF553C9A),
+          seedColor: const Color(0xFF78C1F3),
           brightness: Brightness.light,
         ),
         useMaterial3: true,
+        fontFamily: 'SF Pro Display',
       ),
-      home: const MainWrapper(),
+      home: const SplashScreen(),
     );
   }
 }

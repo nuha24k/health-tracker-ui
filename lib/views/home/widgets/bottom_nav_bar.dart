@@ -13,31 +13,41 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      height: 70,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
+        gradient: const LinearGradient(
+          colors: [Color(0xFFFFFFFF), Color(0xFFFAFBFC)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
+        borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 20,
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 30,
             offset: const Offset(0, -5),
+            spreadRadius: 0,
+          ),
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+            spreadRadius: 0,
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildNavItem(Icons.home_filled, 0),
-          _buildNavItem(Icons.bar_chart_rounded, 1),
-          _buildNavItem(Icons.calendar_today_rounded, 2),
-          _buildNavItem(Icons.person_outline_rounded, 3),
-        ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem(Icons.home_rounded, 0),
+            _buildNavItem(Icons.insights_rounded, 1),
+            _buildNavItem(Icons.calendar_month_rounded, 2),
+            _buildNavItem(Icons.person_rounded, 3),
+          ],
+        ),
       ),
     );
   }
@@ -47,17 +57,36 @@ class CustomBottomNavBar extends StatelessWidget {
     
     return GestureDetector(
       onTap: () => onTap(index),
-      child: Container(
-        padding: const EdgeInsets.all(12),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        padding: EdgeInsets.symmetric(
+          horizontal: isSelected ? 20 : 16,
+          vertical: 12,
+        ),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF78C1F3) : Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
+          gradient: isSelected
+              ? const LinearGradient(
+                  colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : null,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: const Color(0xFF667EEA).withOpacity(0.4),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : null,
         ),
         child: Icon(
           icon,
           color: isSelected ? Colors.white : const Color(0xFF9CA3AF),
-          size: 24,
-          
+          size: isSelected ? 26 : 24,
         ),
       ),
     );
